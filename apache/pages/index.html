@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Docker Apache Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            text-align: center;
+            padding: 50px;
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            color: #555;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            background-color: #fff;
+            color: #333;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            background-color: #28a745;
+            color: white;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+
+    <!-- Include jQuery from CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Docker Demo with LAMP Stack</h1>
+    <p>Click the button below to make a GET request to fetch data from an flask api.</p>
+    <button id="fetchDataBtn">Fetch Data</button>
+
+    <div id="result">
+        <h3>API Response:</h3>
+        <pre id="apiData">No data yet...</pre>
+    </div>
+
+    <script>
+        $(document).ready(function(){
+            // Click event for the button
+            $('#fetchDataBtn').click(function(){
+                // Perform the GET request to an external API
+                $.get('http://192.168.0.22:5000/api/data', function(data){
+                    // Display the API response in the #apiData element
+                    $('#apiData').text(JSON.stringify(data, null, 4));
+                })
+                .fail(function() {
+                    // Handle errors
+                    $('#apiData').text('Error fetching data.');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
