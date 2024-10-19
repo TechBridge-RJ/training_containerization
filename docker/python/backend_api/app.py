@@ -28,6 +28,7 @@ def append_feedback(name, feedback):
         connection = mysql.connector.connect(**db_config)        
         
         if connection.is_connected():
+            print("connection successful")
             cursor = connection.cursor()
 
             # Perform a query
@@ -36,13 +37,13 @@ def append_feedback(name, feedback):
             result = cursor.fetchall()
 
             # Define the SQL INSERT query
-            sql_insert_query = """INSERT INTO %s (name, feedback) VALUES (%s, %s)"""
+            sql_insert_query ="INSERT INTO "+dbTable+" (name, feedback) VALUES (%s, %s)"
             
-            # Data to be appended (name and email)
-            data = (dbTable, name, feedback)
+            # asdData to be appended (name and email)
+            data = (name, feedback)
             
             # Execute the SQL query
-            cursor.execute(sql_insert_query, data)
+            cursor.execute(sql_insert_query,data)
             
             # Commit the changes to the database
             connection.commit()
@@ -68,8 +69,11 @@ def get_data():
         if connection.is_connected():
             cursor = connection.cursor(dictionary=True)  # Use dictionary=True for JSON serializable output
 
+            sql_get_query = "SELECT * FROM "+dbTable
             # Execute a query
-            cursor.execute("SELECT * FROM users_feedback")
+            #cursor.execute("SELECT * FROM users_feedback")
+            data = (dbTable)
+            cursor.execute(sql_get_query)
             results = cursor.fetchall()
             reversed_results = results[::-1]
 

@@ -188,7 +188,7 @@
                     }
                     // Send a POST request using jQuery
                     $.ajax({
-                        url: 'http://'+hostIP+':5000/api/feedback',  // URL of your Flask API endpoint
+                        url: 'http://'+backendApi+':'+backendPort+'/api/feedback',  // URL of your Flask API endpoint
                         type: 'POST',
                         contentType: 'application/json',  // Send data as JSON
                         data: JSON.stringify({ 'user': name, 'feedback': feedback }),  // Send name in the body
@@ -196,7 +196,7 @@
                             // Display the response in the HTML
                             let postResp = "container id : "+data.container_id+" "+data.response 
                             $('#response').text(postResp);
-                            getData(hostIP);
+                            getData(backendApi,backendPort);
                         },
                         error: function(xhr, status, error) {
                             // Handle errors
